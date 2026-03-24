@@ -1,0 +1,74 @@
+import express from "express";
+import bcrypt from "bcrypt";
+
+import jwt from 'jsonwebtoken'
+
+const router = express.Router();
+
+import User from "../models/User.js";
+
+const secret = process.env.JWT_SECRET;
+const expiration = "24hr";
+
+router.post("/register", async (req, res) => {
+  try {
+    const saltRounds = 10;
+
+    //hash the password
+
+    const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
+
+    const user = await User.create({
+      ...req.body,
+      password: hashedPassword,
+    });
+
+    const payload = {
+      username: user.username,
+      email: user.email,
+      _id: user._id,
+    };
+    //create a token
+    const token = jwt.sign({ data: payload }, secret, {
+      expiresIn: expiration,
+    });
+    res.status(201).json({ token, user });
+  } catch (err) {
+    console.log(err.message);
+    res.status(400).json({ message: err.message });
+  }
+});
+
+router.post("/login", async (req, res) => {
+  try {
+    //find user
+    const user = await User.findOne({ email: req.body.email });
+
+    //check if user exist
+    if (!user) {
+      res.status(400).json({ message: "Incorrect email or password" });
+    }
+    //check password
+    const correctPasword =await bcrypt.compare(req.body.password, user.password);
+
+    if (!correctPasword) {
+      return res.status(400).json({ message: "incorrect email or password" });
+    }
+
+    //create a Payload
+    const payload = {
+      username: user.username,
+      email: user.email,
+      _id: user._id,
+    };
+    //create a token
+    const token = jwt.sign({ data: payload }, secret, {expiresIn: expiration});
+
+    res.status(200).json({token,user})
+
+  } catch(err) {
+    console.log(err.message);
+    res.status(400).json({ message: err.message });
+  }
+});
+export default router;
