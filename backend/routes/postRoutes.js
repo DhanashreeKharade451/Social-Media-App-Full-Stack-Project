@@ -1,9 +1,10 @@
 import express from 'express'
-import Post from '../models/post'
+import Post from '../models/post.js'
+
 
 const router = express.Router()
 
-import { authMiddleware } from './Utils/auth'
+import { authMiddleware } from './Utils/auth.js'
 
 router.use(authMiddleware)
 

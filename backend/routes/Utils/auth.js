@@ -8,7 +8,7 @@ export async function authMiddleware(req, res, next) {
 
     //check if tehre is token
     if (!token) {
-      return res.status(403).json({ message: "no token provider" }));
+      return res.status(403).json({ message: "no token provider" });
     }
 
     token = token.split("").pop().trim();
