@@ -20,14 +20,19 @@ const handleChange = (e) => {
     })
 }
 
-const handleSubmit = (e) => {
+const handleSubmit = async (e) => {
     e.preventDefault()
 
     console.log(form)
 
     try{
           //send the form data to our backend
-          userClient.post('/register', form)
+         const {data} = await userClient.post('/register', form)
+         console.log(data)
+
+         //teke the token and store it locally
+    localStorage.setItem("token", data.token)
+    
     }catch{
         console.log(err)
         alert(err.message)
@@ -35,8 +40,7 @@ const handleSubmit = (e) => {
 
   
 
-    //teke the token and store it locally
-
+    
     //save some user data in our state
 
     //take the user to different page
