@@ -9,23 +9,39 @@ import Register from './Pages/Register'
 import Feed from './Pages/feed'
 
 import Navbar from './components/Navbar'
-import {Routes,Route} from 'react-router-dom'
+import {Routes,Route, Navigate} from 'react-router-dom'
 
 
 function App() {
-  useEffect(() => {
-    //async function getData
-      }, [])
 
-  return (
+  //bring in user info
+const { user } = useUser()
+
+console.log(user)
+
+
+  // useEffect(() => {
+  //   //async function getData
+  //     }, [])
+
+ return (
     <>
     
+    
     <Navbar/>
-      <Routes>
+
+    {user ? <Routes>
+      <Route path = "/feed" element={<Feed/>}/>
+      <Route path = "*" element={<Navigate to ="/feed"/>}/>
+    </Routes>
+    :
+    <Routes>
+
         <Route path = "/login" element={<Login/>}/>
         <Route path = "/register" element={<Register/>}/>
-        <Route path = "/feed" element={<Feed/>}/>
-      </Routes>
+        
+      </Routes>} 
+      
       
     </>
   )

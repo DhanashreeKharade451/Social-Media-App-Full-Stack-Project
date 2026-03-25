@@ -1,8 +1,9 @@
-import { Children, createContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 
 const UserContext = createContext(null)
 
-function UserProvider(){
+//custom provider wrap our app
+function UserProvider({children }){
     const [user,setUser] = useState(null)
 
     const value ={
@@ -14,10 +15,15 @@ function UserProvider(){
     return(
         <>
         <UserContext.Provider value={value}>
-            {Children}
+            {children}
         </UserContext.Provider>
         </>
     )
+}
+
+//custom hook to axccess  context value
+export function useUser(){
+    return useContext(UserContext)
 }
 
 

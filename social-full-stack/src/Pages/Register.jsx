@@ -11,6 +11,8 @@ function Register(){
     //bring in the setter function from the context
     const {setUser} =useUser()
 
+      const navigate = useNavigate()
+
     //properties here should match with backend schema
 const [form, setForm] = useState({
     username: '',
@@ -44,7 +46,7 @@ const handleSubmit = async (e) => {
     setUser(data.user)
 
     //take the user to different page
-        Navigate("/feed")
+        navigate("/feed")
 
     }catch{
         console.log(err)
