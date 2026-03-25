@@ -4,6 +4,7 @@ import './config/connection.js'
 import express from 'express';
 import userRoutes from './routes/userRoutes.js'
 import postRoutes from './routes/postRoutes.js'
+import cors from 'cors'
 
 
 const app = express()
