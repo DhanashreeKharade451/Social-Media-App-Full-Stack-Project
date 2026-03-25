@@ -1,8 +1,15 @@
 import { useState } from "react";
+import {useNavigate} from 'react-router-dom'
 
 import { userClient } from "../client/api";
+import { useUser } from "../context/userContext";
+import UserProvider from "../context/userContext";
+
 
 function Register(){
+
+    //bring in the setter function from the context
+    const {setUser} =useUser()
 
     //properties here should match with backend schema
 const [form, setForm] = useState({
@@ -32,7 +39,13 @@ const handleSubmit = async (e) => {
 
          //teke the token and store it locally
     localStorage.setItem("token", data.token)
-    
+
+    //save some user data in our state
+    setUser(data.user)
+
+    //take the user to different page
+        Navigate("/feed")
+
     }catch{
         console.log(err)
         alert(err.message)
@@ -41,9 +54,9 @@ const handleSubmit = async (e) => {
   
 
     
-    //save some user data in our state
+    
 
-    //take the user to different page
+    
 
 }
 
