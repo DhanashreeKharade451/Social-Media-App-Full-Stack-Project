@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+import { userClient } from "../client/api";
+
 function Register(){
 
     //properties here should match with backend schema
@@ -23,7 +25,15 @@ const handleSubmit = (e) => {
 
     console.log(form)
 
-    //send data to our backend
+    try{
+          //send the form data to our backend
+          userClient.post('/register', form)
+    }catch{
+        console.log(err)
+        alert(err.message)
+    }
+
+  
 
     //teke the token and store it locally
 
