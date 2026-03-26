@@ -49,16 +49,9 @@ const handleSubmit = async (e) => {
         navigate("/feed")
 
     }catch{
-        console.log(err)
-        alert(err.message)
-    }
-
-  
-
-    
-    
-
-    
+        console.dir(err)
+        alert(err.response.data.message)
+    } 
 
 }
 

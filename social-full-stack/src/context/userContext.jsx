@@ -5,9 +5,16 @@ import { token, userClient } from "../client/api";
 
 const UserContext = createContext(null)
 
+//check if there is token ,if so assume there is user
+    const initialUser = token() ? { username: null} : null
+
 //custom provider wrap our app
 function UserProvider({children }){
-    const [user,setUser] = useState(null)
+
+    //set initial state the null or temporary user.
+    const [user,setUser] = useState(initialUser)
+
+    
 
     const navigate = useNavigate()
 
@@ -52,7 +59,7 @@ console.log(err)
 
     const value ={
         user,
-        setUser
+        setUser, logout
     }
 
 

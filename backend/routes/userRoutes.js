@@ -3,6 +3,8 @@ import bcrypt from "bcrypt";
 
 import jwt from 'jsonwebtoken'
 
+import { authMiddleware } from "../Utils/auth.js";
+
 const router = express.Router();
 
 import User from "../models/User.js";
@@ -71,4 +73,14 @@ router.post("/login", async (req, res) => {
     res.status(400).json({ message: err.message });
   }
 });
+
+//verify our logged in users token
+router.use(authMiddleware)
+
+//after verification send back the user details (paload)
+router.get('/', (req,res) => {
+  res.status(200).json(req.user)
+
+})
+
 export default router;

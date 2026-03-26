@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useUser } from "../context/userContext";
 
 function Navbar() {
-  const { user } = useUser();
+  const { user, logout } = useUser();
   return (
     <nav>
  {user && <p>Welcome {user.username}!</p>}
@@ -10,10 +10,10 @@ function Navbar() {
         {user ?
         <>
         <li>
-          <Link to="feed">Feed </Link>
+          <Link to="/feed">Feed </Link>
         </li>
-        <li>
-        <Link to="feed">Feed </Link>
+        <li onClick={logout}>
+        <Link to="/logout">Logout </Link>
         </li>
         </>
         
@@ -23,7 +23,7 @@ function Navbar() {
           <Link to="/login">Login</Link>
         </li>
         <li>
-          <Link to="register">Register</Link>
+          <Link to="/register">Register</Link>
         </li>
         </>
     } 

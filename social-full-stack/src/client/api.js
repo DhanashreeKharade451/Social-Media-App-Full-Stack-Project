@@ -10,18 +10,16 @@ export const userClient = axios.create({
 })
 
 export const postClient =axios.create({
-    baseURL: 'http://localhost:3000/api/post',
+    baseURL: 'http://localhost:3000/api/posts',
     headers: {
-        Authorization: `Bearer ${token}`
+        Authorization: `Bearer ${token()}`
     }
 })
 
 postClient.interceptors.request.use((req) => {
-    console.log(req)
-    return req
-
-    if (token){
-        req.headers.Authorization =`Bearer ${token}`
+    
+    if (token()){
+        req.headers.Authorization =`Bearer ${token()}`
     }
 
     return req

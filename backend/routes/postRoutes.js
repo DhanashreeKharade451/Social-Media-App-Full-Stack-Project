@@ -14,19 +14,24 @@ router.post('/', async(req,res) =>{
             ...req.body,
             author: req.user._id
         })
-        res.status(200).json(post)
+        res.status(200).json(...post, author)
     }catch(err){
         console.log(err.message)
-        res.status(400).json({message: Error.message})
+        res.status(400).json({message: err.message})
     }
 })
 router.get('/' ,async(req, res) => {
     try{
+        //can filter posts based of logged in user:{}
 const post = await Post.find({})
+                    .sort({createdAt: -1})
+                    // turn the author (which is an id) into the user document for that author/id
+                     // the second argument 'username' is the field in the user document we want to keep
+                    .populate('author', 'username')
         res.status(200).json(post)
     }catch(err){
         console.log(err.message)
-        res.status(400).json({message: Error.message})
+        res.status(400).json({message: err.message})
     }
 })
 
