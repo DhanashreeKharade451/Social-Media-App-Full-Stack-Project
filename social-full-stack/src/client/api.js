@@ -1,8 +1,12 @@
 import axios from 'axios'
 
-let token = localStorage.getItem('token')
+export const token =() => localStorage.getItem('token')
+//let token = localStorage.getItem('token')
 export const userClient = axios.create({
-    baseURL: 'http://localhost:3000/api/users'
+    baseURL: 'http://localhost:3000/api/users',
+    headers:{
+        Authorization: `Bearer ${token()}`
+    }
 })
 
 export const postClient =axios.create({

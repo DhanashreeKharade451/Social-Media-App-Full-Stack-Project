@@ -10,6 +10,7 @@ import Feed from './Pages/feed'
 
 import Navbar from './components/Navbar'
 import {Routes,Route, Navigate} from 'react-router-dom'
+import { useUser } from './context/userContext'
 
 
 function App() {
@@ -36,10 +37,8 @@ console.log(user)
     </Routes>
     :
     <Routes>
-
         <Route path = "/login" element={<Login/>}/>
-        <Route path = "/register" element={<Register/>}/>
-        
+        <Route path = "/register" element={<Register/>}/>    
       </Routes>} 
       
       
