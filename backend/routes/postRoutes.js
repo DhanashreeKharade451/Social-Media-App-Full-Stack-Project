@@ -10,11 +10,18 @@ router.use(authMiddleware)
 
 router.post('/', async(req,res) =>{
      try{
+
+        console.log(req.body)
+        console.log(req.user)
         const post = await Post.create({
             ...req.body,
             author: req.user._id
         })
-        res.status(200).json(...post, author)
+
+             await post.populate('author', 'username')
+
+       
+        res.status(200).json(post)
     }catch(err){
         console.log(err.message)
         res.status(400).json({message: err.message})

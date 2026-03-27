@@ -4,6 +4,7 @@ import Post from "../components/post";
 
 
 function Feed() {
+
   const [posts, setPosts] = useState([]);
 
   const [title, setTitle] = useState('');
@@ -26,8 +27,9 @@ function Feed() {
     getData();
   }, []);
 
-  const handleSubmit = async (e) => {
-    e.preventdefault();
+  async function handleSubmit(e){
+    e.preventDefault();
+console.log(title,body)
 
     try {
       //make a post request to create the post (based off the state: title and body)
